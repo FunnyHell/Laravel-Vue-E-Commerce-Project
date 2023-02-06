@@ -1,9 +1,3 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 import './bootstrap';
 import { createApp } from 'vue';
 
@@ -15,8 +9,17 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
+import InfiniteLoading from "v3-infinite-loading";
+
 import ExampleComponent from './components/ExampleComponent.vue';
+import ProductListComponent from "./components/ProductListComponent.vue";
+
+app.component("infinite-loading", InfiniteLoading);
+
 app.component('example-component', ExampleComponent);
+app.component('product-list', ProductListComponent);
+
+
 
 /**
  * The following block of code may be used to automatically register your
