@@ -20,7 +20,7 @@ class Product extends Model
             ->leftJoin('reviews', function ($join){
                 $join->on('products.id','=','reviews.product_id');
             })
-             ->select('products.*', 'product_files.path', DB::raw('COUNT(reviews.product_id) as ReviewsCount'))
+             ->select('products.*', 'product_files.path', DB::raw('COUNT(reviews.product_id) as reviews'))
             ->groupBy('products.id', 'product_files.path')
            ->paginate(15);
         return response()->json($data);
