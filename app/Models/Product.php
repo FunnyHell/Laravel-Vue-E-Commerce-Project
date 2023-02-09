@@ -44,6 +44,6 @@ class Product extends Model
             ->groupBy('products.id', 'product_files.id', 'reviews.id', 'ratings.id')
             ->get();
         dump($data);
-        return $data;
+        return $data[0];
     }
 }

@@ -33,7 +33,6 @@ export default {
         axios.get('/api/categories')
             .then(responce => {
                 this.components = responce.data;
-                console.log(responce.data);
             })
             .catch(error => {
                 console.error(error);

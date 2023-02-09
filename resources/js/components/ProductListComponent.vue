@@ -21,13 +21,8 @@
 </template>
 
 <script>
-import InfiniteLoading from "v3-infinite-loading";
-
 export default {
     name: "ProductListComponent",
-    components: {
-        InfiniteLoading
-    },
     data: function () {
         return {
             products: [],
