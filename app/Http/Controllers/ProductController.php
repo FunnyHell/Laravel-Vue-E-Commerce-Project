@@ -11,4 +11,9 @@ class ProductController extends Controller
     {
         return Product::GetPagination();
     }
+
+    public function showPage($id)
+    {
+        return view('product', ['product' => Product::GetProduct($id)]);
+    }
 }
