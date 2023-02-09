@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/product/{id}/images', [ProductFileController::class, 'index']);
+Route::get('/random-products/{id}', [ProductController::class, 'GetRandom']);

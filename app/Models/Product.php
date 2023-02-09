@@ -43,7 +43,24 @@ class Product extends Model
             ->select('products.*', 'product_files.*', 'ratings.*')
             ->groupBy('products.id', 'product_files.id', 'reviews.id', 'ratings.id')
             ->get();
-        dump($data);
         return $data[0];
+    }
+
+    static public function GetRandom($id)
+    {
+        $category = DB::table('products')
+            ->where('id', '=',$id)
+            ->get('category');
+        $data = DB::table('products')
+            ->where('category', '=', $category[0]->category)
+            ->inRandomOrder()
+            ->take(9)
+            ->LeftJoin('product_files', function ($join) {
+                $join->on('products.id', '=', 'product_files.product_id')
+                    ->where('product_files.type', '=', 'card-img');
+            })
+            ->get();
+
+        return response()->json($data);
     }
 }

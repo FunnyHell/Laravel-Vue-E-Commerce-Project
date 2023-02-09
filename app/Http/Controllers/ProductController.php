@@ -16,4 +16,9 @@ class ProductController extends Controller
     {
         return view('product', ['product' => Product::GetProduct($id)]);
     }
+
+    public function GetRandom($id)
+    {
+        return Product::GetRandom($id);
+    }
 }

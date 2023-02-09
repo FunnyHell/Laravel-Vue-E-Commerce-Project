@@ -13,7 +13,19 @@
                 <img class="product-main-image" src="{{asset('/img'.$product->path)}}">
             </div>
             <div class="col-2">
-               <product-image-carousel :id="{{$product->product_id}}"></product-image-carousel>
+                <product-image-carousel :id="{{$product->product_id}}"></product-image-carousel>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 23px">
+            <div class="col-4">
+                <recommendation-products :id="{{$product->product_id}}"></recommendation-products>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-2">
+                <form>
+                    @csrf
+                    <input type="submit">
+                </form>
             </div>
         </div>
     </div>
