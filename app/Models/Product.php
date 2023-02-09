@@ -31,17 +31,19 @@ class Product extends Model
         $data = DB::table('products')
             ->where('products.id', '=', $id)
             ->join('product_files', function ($join) {
-                $join->on('products.id', '=', 'product_files.product_id');
+                $join->on('products.id', '=', 'product_files.product_id')
+                    ->where('product_files.type', '=', 'main-img');
             })
-            ->leftJoin('reviews', function ($join){
+            ->leftJoin('reviews', function ($join) {
                 $join->on('products.id', '=', 'reviews.product_id');
             })
-            ->leftJoin('ratings', function ($join){
+            ->leftJoin('ratings', function ($join) {
                 $join->on('products.id', '=', 'ratings.product_id');
             })
-            ->select('products.*', 'product_files.*', DB::raw('COUNT(reviews.product_id) as reviews'), 'ratings.*', DB::raw('AVG(ratings.value) as averageRating'))
-            ->groupBy('products.id', 'product_files.id', 'ratings.id')
+            ->select('products.*', 'product_files.*', 'ratings.*')
+            ->groupBy('products.id', 'product_files.id', 'reviews.id', 'ratings.id')
             ->get();
-        return $data[0];
+        dump($data);
+        return $data;
     }
 }

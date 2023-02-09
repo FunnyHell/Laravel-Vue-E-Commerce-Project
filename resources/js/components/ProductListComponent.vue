@@ -2,14 +2,15 @@
 
     <div v-for="product in products" class="product-card">
         <a :href="/product/+product.id">
-            <div>
-                <div style="margin: 10px 10px 23px 10px"><img :src="'/img'+product.path" class="card-img"></div>
-                <div class="row">
-                    <div class="col">
-                        <div class="row"><h3 class="title">{{ product.title }}</h3></div>
-                        <div class="row"><h3 class="cost">{{ product.cost }} $</h3></div>
-                    </div>
-                    <div class="col"><h4 class="reviews">{{ product.reviews }} reviews</h4></div>
+            <div style="margin: 10px 10px 23px 10px"><img :src="'/img'+product.path" class="card-img"></div>
+            <div class="row">
+                <div class="col">
+                    <div class="row"><h3 class="title">{{ product.title }}</h3></div>
+                    <div class="row"><h3 class="cost">{{ product.cost }} $</h3></div>
+                </div>
+                <div class="col">
+                    <h4 class="reviews">{{ product.reviews }} reviews</h4>
+                    <h4 class="reviews">{{ product.rating }} / 10</h4>
                 </div>
             </div>
         </a>
@@ -69,36 +70,12 @@ export default {
 }
 
 .card-img {
-    object-fit: cover;
     height: 223px;
     border-radius: 5px;
 }
 
-h3 {
-    color: rgb(0, 0, 0);
-    font-family: Montserrat;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0px;
-}
-
-h4 {
-    color: rgb(0, 0, 0);
-    font-family: Montserrat;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 15px;
-    letter-spacing: 0px;
-}
-
 .title .cost {
     text-align: left;
-}
-
-a {
-    color: black;
-    text-decoration: none;
 }
 
 .row > * {

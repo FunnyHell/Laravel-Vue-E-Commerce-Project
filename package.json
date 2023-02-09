@@ -17,6 +17,7 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "@splidejs/splide": "^4.1.4",
         "normalize.css": "^8.0.1",
         "v3-infinite-loading": "^1.2.2"
     }
