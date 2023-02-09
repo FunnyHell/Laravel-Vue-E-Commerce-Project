@@ -40,7 +40,7 @@ export default {
                 axios.get('/api/products?page=' + this.page)
                     .then(response => {
                         this.products = this.products.concat(response.data.data);
-                        console.log(this.products);
+                        console.log(response.data.data);
                         this.page++;
                         if (response.data.data.length === 0) {
                             this.finished = true;
