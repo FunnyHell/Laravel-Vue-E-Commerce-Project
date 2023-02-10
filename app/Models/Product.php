@@ -43,6 +43,7 @@ class Product extends Model
             ->select('products.*', 'product_files.*', 'ratings.*')
             ->groupBy('products.id', 'product_files.id', 'reviews.id', 'ratings.id')
             ->get();
+        dump($data[0]);
         return $data[0];
     }
 
@@ -60,7 +61,6 @@ class Product extends Model
                     ->where('product_files.type', '=', 'card-img');
             })
             ->get();
-
         return response()->json($data);
     }
 }

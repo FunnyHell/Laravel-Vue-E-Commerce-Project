@@ -4,11 +4,11 @@
             <splide-slide v-for="product in products">
                 <div class="card" style="margin-right: 8px; margin-left: 9px; ">
                     <a :href="'/product/'+product.id">
-                    <div style="text-align: center;">
-                        <img :src="'/img'+product.path" class="card-img">
-                    </div>
-                    <h2 class="card-text">{{ product.title }}</h2>
-                    <h2 class="card-text">{{ product.cost }}</h2>
+                        <div style="text-align: center;">
+                            <img :src="'/img'+product.path" class="card-img">
+                        </div>
+                        <h2 class="card-text">{{ product.title }}</h2>
+                        <h2 class="card-text">{{ product.cost }}$</h2>
                     </a>
                 </div>
             </splide-slide>
@@ -48,15 +48,15 @@ export default {
 
 <style scoped>
 
-    .card-img {
-        margin-top: 10px;
-        height: 110px;
-        width: 110px;
-        border-radius: 1px;
-    }
+.card-img {
+    margin-top: 10px;
+    height: 110px;
+    width: 110px;
+    border-radius: 1px;
+}
 
-    .card-text {
-        margin: 10px 10px 5px;
-    }
+.card-text {
+    margin: 10px 10px 5px;
+}
 
 </style>
