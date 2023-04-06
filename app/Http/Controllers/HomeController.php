@@ -25,4 +25,24 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function __invoke()
+    {
+
+    }
+
+    public function adminProfile()
+    {
+        return view('admin');
+    }
+
+    public function sellerProfile()
+    {
+        return view('seller');
+    }
+
+    public function userProfile()
+    {
+        return view('user');
+    }
 }

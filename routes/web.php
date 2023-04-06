@@ -20,5 +20,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/product/{id}', [\App\Http\Controllers\ProductController::class, 'showPage']);
+
+Route::middleware('roleCheck:admin')->get('/admin', \App\Http\Controllers\HomeController::class, 'adminProfile');
+Route::middleware('roleCheck:seller')->get('/seller', \App\Http\Controllers\HomeController::class, 'sellerProfile');
+Route::middleware('roleCheck:user')->get('/user', \App\Http\Controllers\HomeController::class, 'userProfile');
