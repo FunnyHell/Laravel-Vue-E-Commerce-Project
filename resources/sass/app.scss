@@ -144,3 +144,26 @@ a, a:hover {
     transition-duration: .15s;
     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.55);
 }
+
+.menu {
+    margin: 0 120px 0 50px;
+}
+
+.menu-but {
+    padding: 15px;
+    margin: 10px auto;
+    width: 90%;
+    font-size: 18px;
+    font-family: Montserrat;
+    border: none;
+    background: none;
+}
+
+.active {
+    background: rgb(235, 235, 235);
+}
+
+.menu-but:hover {
+    background: rgb(225, 225, 225);
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.24), 0 7px 20px 0 rgba(0,0,0,0.19);
+}

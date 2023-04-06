@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BuyingHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -26,23 +28,18 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function __invoke()
-    {
-
-    }
-
     public function adminProfile()
     {
-        return view('admin');
+        return view('admin-profile');
     }
 
     public function sellerProfile()
     {
-        return view('seller');
+        return view('seller-profile');
     }
 
     public function userProfile()
     {
-        return view('user');
+        return view('user-profile', ['history' => BuyingHistory::GetHistory(Auth::user()->id)]);
     }
 }
