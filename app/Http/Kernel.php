@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckUser;
 use App\Http\Middleware\RoleCheck;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 

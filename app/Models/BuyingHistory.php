@@ -40,7 +40,6 @@ class BuyingHistory extends Model
         foreach ($tmp as $item) {
             $db->push($item[0]);
         }
-        dd($db);
         return $db;
     }
 }

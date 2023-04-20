@@ -1,8 +1,8 @@
 <template>
     <div>
-        <splide :options="{rewind: true, drag: true, perPage: 3, autoplay: true, pagination: false}">
+        <splide ref="splide" :options="splideOption">
             <splide-slide v-for="product in products">
-                <div class="card" style="margin-right: 8px; margin-left: 9px; ">
+                <div class="card" style="margin: 10px; min-width: fit-content">
                     <a :href="'/product/'+product.id">
                         <div style="text-align: center;">
                             <img :src="'/img'+product.path" class="card-img">
@@ -20,7 +20,6 @@
 import axios from "axios";
 import {Splide, SplideSlide} from '@splidejs/vue-splide';
 
-
 export default {
     name: "RecomendationProductComponent",
     props: ['id'],
@@ -28,12 +27,38 @@ export default {
         Splide,
         SplideSlide,
     },
-    data: function () {
+    data() {
         return {
-            products: []
+            products: [],
+            splideOption: {
+                rewind: true,
+                drag: true,
+                perPage: 3,
+                autoplay: true,
+                pagination: false
+            }
         }
     },
     mounted() {
+        const breakpoints = {
+            1401: {perPage: 3},
+            1400: {perPage: 2},
+            992: {perPage: 1},
+        };
+        const splide = this.$refs.splide.splide;
+        this.$nextTick(() => {
+            Object.keys(breakpoints).forEach((breakpoint) => {
+                const media = window.matchMedia(`(max-width: ${breakpoint}px)`);
+                const {perPage} = breakpoints[breakpoint];
+                const setPerPage = () => {
+                    splide.options.perPage = perPage;
+                    splide.refresh();
+                };
+                media.addListener(setPerPage);
+                setPerPage();
+            });
+        });
+
         axios.get(`/api/random-products/${this.id}`)
             .then(responce => {
                 this.products = responce.data;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BuyingHistory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,6 +41,11 @@ class HomeController extends Controller
 
     public function userProfile()
     {
-        return view('user-profile', ['history' => BuyingHistory::GetHistory(Auth::user()->id)]);
+        return view('user-profile');
+    }
+
+    public function GetSettings($id)
+    {
+        return User::GetSettings($id);
     }
 }

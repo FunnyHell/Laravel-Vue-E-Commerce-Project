@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductFileController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +26,5 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/product/{id}/images', [ProductFileController::class, 'index']);
 Route::get('/random-products/{id}', [ProductController::class, 'GetRandom']);
+Route::get('/user-history-products/{id}', [HistoryController::class, 'GetHistory']);
+
