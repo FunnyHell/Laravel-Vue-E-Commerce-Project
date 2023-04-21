@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BuyingHistory;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -55,8 +56,15 @@ class HomeController extends Controller
         return view('seller-statistic');
     }
 
-    public function GetStatistic($id){
+    public function GetStatistic($id)
+    {
         return User::GetStatistic($id);
+    }
+
+    public function addingPage()
+    {
+        dump(Category::GetCategoriesRaw());
+        return view('seller-adding-page', ['categories' => Category::GetCategoriesRaw()]);
     }
 
     public function userProfile()

@@ -12,7 +12,11 @@
             <li v-if="component.parent_id != null" class="dropdown-item">
                 <ul>
                     <li>
-                        <h3>{{ component.name }}</h3>
+                        <h3>
+                            <a :href="/category/+component.name.toLowerCase()">
+                                {{ component.name }}
+                            </a>
+                        </h3>
                     </li>
                 </ul>
             </li>

@@ -1,9 +1,9 @@
 <template>
     <div v-for="product in products" class="product-card">
         <a :href="/product/+product.id">
-            <div style="margin: 10px 10px 23px 10px"><img :src="'/img'+product.path" class="card-img"></div>
+            <div style="margin: 10px 10px 23px 10px"><img :src="'/storage/'+product.path" class="card-img"></div>
             <div class="row">
-                <div class="col">
+                <div class="col-8">
                     <div class="row"><h3 class="title">{{ product.title }}</h3></div>
                     <div class="row"><h3 class="cost">{{ product.cost }} $</h3></div>
                 </div>
@@ -69,7 +69,7 @@ export default {
 }
 
 .title .cost {
-    text-align: left;
+    align-self: left;
 }
 
 .row > * {

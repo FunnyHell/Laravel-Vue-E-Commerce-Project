@@ -9,8 +9,7 @@
             </div>
             <div class="col-1"></div>
             <div class="col-4" style="margin-right: 20px;">
-
-                <img class="product-main-image" src="{{asset('/img'.$product->path)}}">
+                <img class="product-main-image" src="{{asset('storage/'.$product->path)}}">
             </div>
             <div class="col-2">
                 <product-image-carousel :id="{{$product->product_id}}"></product-image-carousel>

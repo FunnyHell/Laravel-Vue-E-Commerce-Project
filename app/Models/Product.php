@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -44,7 +46,7 @@ class Product extends Model
     {
         $data = DB::table('products')
             ->where('products.id', '=', $id)
-            ->join('product_files', function ($join) {
+            ->leftJoin('product_files', function ($join) {
                 $join->on('products.id', '=', 'product_files.product_id')
                     ->where('product_files.type', '=', 'main-img');
             })
@@ -54,9 +56,10 @@ class Product extends Model
             ->leftJoin('ratings', function ($join) {
                 $join->on('products.id', '=', 'ratings.product_id');
             })
-            ->select('products.*', 'product_files.*', 'ratings.*')
+            ->select('products.*', 'product_files.*', 'ratings.value')
             ->groupBy('products.id', 'product_files.id', 'reviews.id', 'ratings.id')
             ->get();
+
         dump($data[0]);
         return $data[0];
     }
@@ -64,7 +67,7 @@ class Product extends Model
     static public function GetRandom($id)
     {
         $category = DB::table('products')
-            ->where('id', '=',$id)
+            ->where('id', '=', $id)
             ->get('category');
         $data = DB::table('products')
             ->where('category', '=', $category[0]->category)
@@ -76,5 +79,30 @@ class Product extends Model
             })
             ->get();
         return response()->json($data);
+    }
+
+    static private function SaveImg($img)
+    {
+        return $url = Storage::disk('public')->put('/img', $img);
+    }
+
+    static public function PostProduct($request)
+    {
+        dump($request);
+        $main_img = $request->file('main-img');
+        $sub_img = $request->file('sub-img');
+        dump($main_img, $sub_img);
+        $url = Product::SaveImg($main_img);
+        dump($url);
+        $category = DB::table('categories')->where('name', '=', $request->input('category'))->get('id')[0];
+        dump($category);
+        $product_id = DB::table('products')->insertGetId(['title' => $request->input('name'), 'description' => $request->input('description'), 'category' => $category->id, 'seller_id' => Auth::user()->id, 'cost' => $request->input('cost')]);
+        dump($product_id);
+        DB::table('product_files')->insert(['type' => 'main-img', 'path' => '/' . $url, 'product_id' => $product_id]);
+        DB::table('product_files')->insert(['type' => 'card-img', 'path' => '/' . $url, 'product_id' => $product_id]);
+        foreach ($sub_img as $item) {
+            $url = Product::SaveImg($item);
+            DB::table('product_files')->insert(['type' => 'sub-img', 'path' => '/' . $url, 'product_id' => $product_id]);
+        }
     }
 }

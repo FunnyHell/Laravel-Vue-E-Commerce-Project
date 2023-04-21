@@ -22,4 +22,10 @@ class ProductController extends Controller
     {
         return Product::GetRandom($id);
     }
+
+    public function PostProduct(Request $request)
+    {
+        Product::PostProduct($request);
+        return redirect('/seller');
+    }
 }

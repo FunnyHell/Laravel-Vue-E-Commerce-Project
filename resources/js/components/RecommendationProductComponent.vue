@@ -5,7 +5,7 @@
                 <div class="card" style="margin: 10px; min-width: fit-content">
                     <a :href="'/product/'+product.id">
                         <div style="text-align: center;">
-                            <img :src="'/img'+product.path" class="card-img">
+                            <img :src="'/storage/'+product.path" class="card-img">
                         </div>
                         <h2 class="card-text">{{ product.title }}</h2>
                         <h2 class="card-text">{{ product.cost }}$</h2>

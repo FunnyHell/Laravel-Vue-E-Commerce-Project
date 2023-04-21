@@ -206,3 +206,49 @@ a, a:hover {
 .product-container img {
     border-radius: 16px;
 }
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.input-text {
+    width: 260px;
+    margin: 0 12px 12px 0;
+    font-size: 16px;
+}
+
+#description {
+    font-size: 16px;
+    margin-bottom: 12px;
+    resize: none;
+}
+
+#category {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.input-btn {
+    width: 125px;
+    margin-right: 12px;
+    font-size: 20px;
+    background: rgb(255, 255, 255);
+    border: none;
+    border-radius: 13px;
+}
+
+.input-btn:hover {
+    font-size: 22px;
+    transition-duration: .15s;
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.55);
+}
+
+.input-file {
+    width: 265px;
+    margin: 0 12px 12px 0;
+}

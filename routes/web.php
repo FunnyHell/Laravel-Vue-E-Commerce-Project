@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,14 +22,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/product/{id}', [\App\Http\Controllers\ProductController::class, 'showPage']);
+Route::get('/home', [HomeController::class, 'index']);
+Route::get('/product/{id}', [ProductController::class, 'showPage']);
 
-Route::middleware('roleCheck:user')->get('/user', [\App\Http\Controllers\HomeController::class, 'userProfile'])->name('user-profile');
+Route::middleware('roleCheck:user')->get('/user', [HomeController::class, 'userProfile'])->name('user-profile');
 
 Route::middleware('roleCheck:seller')->group(function (){
     Route::get('/seller',[\App\Http\Controllers\HomeController::class, 'sellerProfile'])->name('seller-profile');
     Route::get('/seller/{id}/statistic', [HomeController::class, 'GetStatistic']);
+    Route::get('/seller/add-new', [HomeController::class, 'addingPage']);
+    Route::post('/seller/{id}/add-new', [ProductController::class, 'PostProduct']);
 });
 
 

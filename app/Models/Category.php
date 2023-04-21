@@ -17,4 +17,12 @@ class Category extends Model
             ->get();
         return response()->json($data);
     }
+
+    public static function GetCategoriesRaw()
+    {
+        return DB::table('categories')
+            ->whereNotNull('parent_id')
+            ->orderByRaw('parent_id, id')
+            ->get();
+    }
 }

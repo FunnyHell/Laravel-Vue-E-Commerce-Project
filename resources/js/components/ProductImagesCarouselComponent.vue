@@ -3,13 +3,13 @@
         <div class="splide__track" style="justify-content: center; text-align: center;">
             <splide :options="{rewind: true, direction: 'ttb', height: '430px', wheel: true, drag: true, perPage: 3 }">
                 <splide-slide v-for="image in images">
-                    <img :src="'/img'+image.path" class="slide-img">
+                    <img :src="'/storage/'+image.path" class="slide-img">
                 </splide-slide>
                 <splide-slide v-for="image in images">
-                    <img :src="'/img'+image.path" class="slide-img">
+                    <img :src="'/storage/'+image.path" class="slide-img">
                 </splide-slide>
                 <splide-slide v-for="image in images">
-                    <img :src="'/img'+image.path" class="slide-img">
+                    <img :src="'/storage/'+image.path" class="slide-img">
                 </splide-slide>
             </splide>
         </div>
