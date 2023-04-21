@@ -1,5 +1,4 @@
 <template>
-
     <div v-for="product in products" class="product-card">
         <a :href="/product/+product.id">
             <div style="margin: 10px 10px 23px 10px"><img :src="'/img'+product.path" class="card-img"></div>

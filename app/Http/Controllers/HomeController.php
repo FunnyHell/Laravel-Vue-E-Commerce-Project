@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BuyingHistory;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,11 +23,21 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-        return view('home');
+        switch (Auth::user()->role) {
+            case 'admin':
+                return redirect()->route('admin-profile');
+                break;
+            case 'seller':
+                return redirect()->route('seller-profile');
+                break;
+            case 'user':
+                return redirect()->route('user-profile');
+                break;
+        }
     }
 
     public function adminProfile()
@@ -39,13 +50,17 @@ class HomeController extends Controller
         return view('seller-profile');
     }
 
+    public function sellerStatistic()
+    {
+        return view('seller-statistic');
+    }
+
+    public function GetStatistic($id){
+        return User::GetStatistic($id);
+    }
+
     public function userProfile()
     {
         return view('user-profile');
-    }
-
-    public function GetSettings($id)
-    {
-        return User::GetSettings($id);
     }
 }

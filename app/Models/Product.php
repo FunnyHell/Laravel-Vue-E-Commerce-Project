@@ -10,7 +10,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    static public function GetPagination()
+    static public function GetPagination($id = null)
     {
         $data = DB::table('products')
             ->LeftJoin('product_files', function ($join) {
@@ -23,6 +23,20 @@ class Product extends Model
             ->select('products.*', 'product_files.path', DB::raw('COUNT(reviews.product_id) as reviews'))
             ->groupBy('products.id', 'product_files.path')
             ->paginate(15);
+        if ($id) {
+            $data = DB::table('products')
+                ->LeftJoin('product_files', function ($join) {
+                    $join->on('products.id', '=', 'product_files.product_id')
+                        ->where('product_files.type', '=', 'card-img');
+                })
+                ->leftJoin('reviews', function ($join) {
+                    $join->on('products.id', '=', 'reviews.product_id');
+                })
+                ->select('products.*', 'product_files.path', DB::raw('COUNT(reviews.product_id) as reviews'))
+                ->where('products.seller_id', '=', $id)
+                ->groupBy('products.id', 'product_files.path')
+                ->paginate(15);
+        }
         return response()->json($data);
     }
 
