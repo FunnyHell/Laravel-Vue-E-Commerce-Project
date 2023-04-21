@@ -20,6 +20,8 @@
 </template>
 
 <script>
+const currentPath = window.location.pathname;
+let apiEndpoint
 export default {
     name: "ProductListComponent",
     data: function () {
@@ -31,8 +33,16 @@ export default {
     },
     methods: {
         loadData() {
+            if (currentPath === '/') {
+                apiEndpoint = '/api/products?page=' + this.page;
+                console.log(apiEndpoint);
+            } else {
+                apiEndpoint = '/api' + currentPath + '/products?page=' + this.page;
+                console.log(apiEndpoint);
+            }
+
             if (!this.finished) {
-                axios.get('/api/products?page=' + this.page)
+                axios.get(apiEndpoint)
                     .then(response => {
                         this.products = this.products.concat(response.data.data);
                         console.log(response.data.data);
@@ -48,6 +58,8 @@ export default {
         }
     }
 }
+
+
 </script>
 
 <style scoped>

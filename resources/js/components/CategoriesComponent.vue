@@ -4,9 +4,7 @@
             <li v-if="component.parent_id == null" class="dropdown-item">
                 <hr v-if="component.id != 1" class="dropdown-divider">
                 <h2>
-                    <a :href="/category/+component.name.toLowerCase()">
-                        {{ component.name }}
-                    </a>
+                    {{ component.name }}
                 </h2>
             </li>
             <li v-if="component.parent_id != null" class="dropdown-item">

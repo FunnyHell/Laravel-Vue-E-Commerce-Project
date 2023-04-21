@@ -81,6 +81,24 @@ class Product extends Model
         return response()->json($data);
     }
 
+    static public function GetFilteredProducts($category)
+    {
+        $c = DB::table('categories')->where('name','=',$category)->first()->id;
+        $data = DB::table('products')
+            ->LeftJoin('product_files', function ($join) {
+                $join->on('products.id', '=', 'product_files.product_id')
+                    ->where('product_files.type', '=', 'card-img');
+            })
+            ->leftJoin('reviews', function ($join) {
+                $join->on('products.id', '=', 'reviews.product_id');
+            })
+            ->select('products.*', 'product_files.path', DB::raw('COUNT(reviews.product_id) as reviews'))
+            ->where('products.category','=',$c)
+            ->groupBy('products.id', 'product_files.path')
+            ->paginate(15);
+        return response()->json($data);
+    }
+
     static private function SaveImg($img)
     {
         return $url = Storage::disk('public')->put('/img', $img);

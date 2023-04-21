@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/category/{category}', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
@@ -27,8 +31,8 @@ Route::get('/product/{id}', [ProductController::class, 'showPage']);
 
 Route::middleware('roleCheck:user')->get('/user', [HomeController::class, 'userProfile'])->name('user-profile');
 
-Route::middleware('roleCheck:seller')->group(function (){
-    Route::get('/seller',[\App\Http\Controllers\HomeController::class, 'sellerProfile'])->name('seller-profile');
+Route::middleware('roleCheck:seller')->group(function () {
+    Route::get('/seller', [\App\Http\Controllers\HomeController::class, 'sellerProfile'])->name('seller-profile');
     Route::get('/seller/{id}/statistic', [HomeController::class, 'GetStatistic']);
     Route::get('/seller/add-new', [HomeController::class, 'addingPage']);
     Route::post('/seller/{id}/add-new', [ProductController::class, 'PostProduct']);
