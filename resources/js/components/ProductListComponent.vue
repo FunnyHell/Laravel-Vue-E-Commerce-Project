@@ -80,10 +80,6 @@ export default {
     border-radius: 5px;
 }
 
-.title .cost {
-    align-self: left;
-}
-
 .row > * {
     padding-left: 0;
 }
