@@ -45,47 +45,4 @@ export default {
 
 <style scoped>
 
-.product-image {
-    display: inline-block;
-    width: 20%;
-}
-
-.product {
-    display: inline-block;
-    vertical-align: top;
-    margin-left: 10px;
-}
-
-.product span {
-    width: 220px;
-    display: flex;
-    justify-content: space-between;;
-}
-
-.product span a {
-    text-decoration: underline;
-}
-
-.product span a:hover {
-    color: #3e9a8f;
-}
-
-.product-container {
-    margin-bottom: 24px;
-    padding: 7px;
-    border: rgba(62, 154, 143, 0.46) 2px solid;
-    border-radius: 24px;
-}
-
-.product-container img {
-    border-radius: 16px;
-}
-
-.text-container {
-    height: 110px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
 </style>

@@ -64,6 +64,11 @@ class BuyingHistory extends Model
             // добавляем сумму за каждый товар и месяц
         }
 
+        $product_names = array();
+        foreach (array_keys($count) as $item){
+            $product_names[$item] = DB::table('products')->where('id', '=', $item)->get('title')[0]->title;
+        }
+
         $costs = array(); //Получаем данные по товарам без группировки по месяцам
         foreach ($count as $key => $value) {
             $costs[$key] = $value * DB::table('products')->where('id', $key)->value('cost');
@@ -74,7 +79,12 @@ class BuyingHistory extends Model
             return $createdAt->month;
         });
 
-        return ['db' => $groupedProducts, 'count' => $count, 'total_cost' => $cost, 'costs' => $costs, 'months' => $months];
+        $total = 0;
+        foreach ($costs as $c) {
+            $total += $c;
+        }
+
+        return ['db' => $groupedProducts, 'count' => $count, 'total_cost' => $cost, 'costs' => $costs, 'months' => $months, 'products_names' => $product_names, 'total' => $total];
     }
 
     static public function GetHistory($id) // получаем все продукты покупателя

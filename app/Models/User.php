@@ -46,6 +46,6 @@ class User extends Authenticatable
     static public function GetStatistic($id){
         $products = BuyingHistory::GetProducts($id);
         dump($products);
-        return view('seller-statistic');
+        return view('seller-statistic', ['products' => $products]);
     }
 }
