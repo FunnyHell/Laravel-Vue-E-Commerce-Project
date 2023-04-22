@@ -10,7 +10,7 @@
                     @if($products['db']->has($i))
                         @foreach($products['db'][$i] as $product)
                             <div class="product-container">
-                                <img src="/img/{{$product->path}}" class="product-image">
+                                <img src="{{asset('storage/'.$product->path)}}" class="product-image">
                                 <div class="product">
                                     <div class="text-container" style="height: 70px">
                                         <span>

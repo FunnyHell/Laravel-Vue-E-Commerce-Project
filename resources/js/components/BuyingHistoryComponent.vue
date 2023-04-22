@@ -1,7 +1,7 @@
 <template>
     <div class="product-container" v-for="product in products">
         <a :href="'/product/'+product.id">
-            <img :src="'/img'+product.path" class="product-image">
+            <img :src="'/storage/'+product.path" class="product-image">
             <div class="product">
                 <div class="text-container">
                     <span>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appeal;
 use App\Models\BuyingHistory;
 use App\Models\Category;
 use App\Models\Product;
@@ -43,7 +44,21 @@ class HomeController extends Controller
 
     public function adminProfile()
     {
-        return view('admin-profile');
+        dump(Appeal::GetAppeals());
+        return view('admin-profile', ['appeals' => Appeal::GetAppeals()]);
+    }
+
+    public function cancelAppeal($id)
+    {
+        Appeal::Cancel($id);
+        return redirect('/admin');
+    }
+
+    public function deleteAppeal(Request $request, $id)
+    {
+        $product_id = $request->input('product_id');
+        Appeal::DeleteByAppeal($id, $product_id);
+        return redirect('/admin');
     }
 
     public function sellerProfile()

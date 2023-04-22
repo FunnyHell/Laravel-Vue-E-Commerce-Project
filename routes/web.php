@@ -32,11 +32,16 @@ Route::get('/product/{id}', [ProductController::class, 'showPage']);
 Route::middleware('roleCheck:user')->get('/user', [HomeController::class, 'userProfile'])->name('user-profile');
 
 Route::middleware('roleCheck:seller')->group(function () {
-    Route::get('/seller', [\App\Http\Controllers\HomeController::class, 'sellerProfile'])->name('seller-profile');
+    Route::get('/seller', [HomeController::class, 'sellerProfile'])->name('seller-profile');
     Route::get('/seller/{id}/statistic', [HomeController::class, 'GetStatistic']);
     Route::get('/seller/add-new', [HomeController::class, 'addingPage']);
     Route::post('/seller/{id}/add-new', [ProductController::class, 'PostProduct']);
 });
 
+Route::middleware('roleCheck:admin')->group(function () {
+   Route::get('/admin', [HomeController::class, 'adminProfile'])->name('admin-profile');
+   Route::post('/cancel-appeal/{id}', [HomeController::class, 'cancelAppeal']);
+   Route::post('/delete-appeal/{id}', [HomeController::class, 'deleteAppeal']);
+});
 
-Route::middleware('roleCheck:admin')->get('/admin', [\App\Http\Controllers\HomeController::class, 'adminProfile'])->name('admin-profile');
+Route::post('/delete-product/{id}', [ProductController::class, 'deleteProduct']);

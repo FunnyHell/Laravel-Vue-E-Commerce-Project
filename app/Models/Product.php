@@ -23,6 +23,7 @@ class Product extends Model
                 $join->on('products.id', '=', 'reviews.product_id');
             })
             ->select('products.*', 'product_files.path', DB::raw('COUNT(reviews.product_id) as reviews'))
+            ->where('products.is_deleted', '=', '0')
             ->groupBy('products.id', 'product_files.path')
             ->paginate(15);
         if ($id) {
@@ -35,6 +36,7 @@ class Product extends Model
                     $join->on('products.id', '=', 'reviews.product_id');
                 })
                 ->select('products.*', 'product_files.path', DB::raw('COUNT(reviews.product_id) as reviews'))
+                ->where('products.is_deleted', '=', '0')
                 ->where('products.seller_id', '=', $id)
                 ->groupBy('products.id', 'product_files.path')
                 ->paginate(15);
@@ -57,6 +59,7 @@ class Product extends Model
                 $join->on('products.id', '=', 'ratings.product_id');
             })
             ->select('products.*', 'product_files.*', 'ratings.value')
+            ->where('products.is_deleted', '=', '0')
             ->groupBy('products.id', 'product_files.id', 'reviews.id', 'ratings.id')
             ->get();
 
@@ -77,13 +80,14 @@ class Product extends Model
                 $join->on('products.id', '=', 'product_files.product_id')
                     ->where('product_files.type', '=', 'card-img');
             })
+            ->where('products.is_deleted', '=', '0')
             ->get();
         return response()->json($data);
     }
 
     static public function GetFilteredProducts($category)
     {
-        $c = DB::table('categories')->where('name','=',$category)->first()->id;
+        $c = DB::table('categories')->where('name', '=', $category)->first()->id;
         $data = DB::table('products')
             ->LeftJoin('product_files', function ($join) {
                 $join->on('products.id', '=', 'product_files.product_id')
@@ -93,7 +97,8 @@ class Product extends Model
                 $join->on('products.id', '=', 'reviews.product_id');
             })
             ->select('products.*', 'product_files.path', DB::raw('COUNT(reviews.product_id) as reviews'))
-            ->where('products.category','=',$c)
+            ->where('products.is_deleted', '=', '0')
+            ->where('products.category', '=', $c)
             ->groupBy('products.id', 'product_files.path')
             ->paginate(15);
         return response()->json($data);
@@ -122,5 +127,10 @@ class Product extends Model
             $url = Product::SaveImg($item);
             DB::table('product_files')->insert(['type' => 'sub-img', 'path' => '/' . $url, 'product_id' => $product_id]);
         }
+    }
+
+    public static function DeleteProduct($id)
+    {
+        DB::table('products')->where('id', '=', $id)->update(['is_deleted' => 1]);
     }
 }

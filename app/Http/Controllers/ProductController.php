@@ -28,4 +28,9 @@ class ProductController extends Controller
         Product::PostProduct($request);
         return redirect('/seller');
     }
+
+    public function DeleteProduct($id){
+        Product::DeleteProduct($id);
+        return redirect('/');
+    }
 }
