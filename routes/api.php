@@ -23,8 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/products', [ProductController::class, 'index']);
-Route::get('/category/{category}/products', [CategoryController::class, 'FilteredProducts']);
-Route::get('/seller/{seller}/products', [CategoryController::class, 'SellersProducts']);
+Route::get('/products/category/{category}', [CategoryController::class, 'FilteredProducts']);
+Route::get('/products/seller/{seller}', [CategoryController::class, 'SellersProducts']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/product/{id}/images', [ProductFileController::class, 'index']);
 Route::get('/random-products/{id}', [ProductController::class, 'GetRandom']);

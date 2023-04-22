@@ -45,7 +45,6 @@ class HomeController extends Controller
 
     public function adminProfile()
     {
-        dump(Appeal::GetAppeals());
         return view('admin-profile', ['appeals' => Appeal::GetAppeals()]);
     }
 
@@ -79,7 +78,6 @@ class HomeController extends Controller
 
     public function addingPage()
     {
-        dump(Category::GetCategoriesRaw());
         return view('seller-adding-page', ['categories' => Category::GetCategoriesRaw()]);
     }
 

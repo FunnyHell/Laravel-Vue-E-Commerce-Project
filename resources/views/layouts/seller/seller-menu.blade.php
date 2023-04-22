@@ -7,7 +7,7 @@
         <a href="/seller/{{Auth::user()->id}}/statistic">
             <button class="menu-but">Statistic</button>
         </a>
-        <a href="/seller/add-new">
+        <a href="/seller-add-new">
             <button class="menu-but">Add new</button>
         </a>
     </div>

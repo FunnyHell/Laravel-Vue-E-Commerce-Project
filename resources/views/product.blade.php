@@ -55,6 +55,7 @@
             <form action="/add-review/{{$product->product_id}}" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                 <textarea name="text" id="description" cols="50" rows="5" placeholder="Send review" required style="margin-left: 15px"></textarea>
+                <br>
                 <input type="submit" class="cancel" value="Send" name="send"></input>
             </form>
             @endauth

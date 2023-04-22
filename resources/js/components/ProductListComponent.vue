@@ -36,8 +36,8 @@ export default {
             if (currentPath === '/') {
                 apiEndpoint = '/api/products?page=' + this.page;
                 console.log(apiEndpoint);
-            } else {
-                apiEndpoint = '/api' + currentPath + '/products?page=' + this.page;
+            } else if (currentPath !== '/seller/add-new') {
+                apiEndpoint = '/api/products' + currentPath + '?page=' + this.page;
                 console.log(apiEndpoint);
             }
 

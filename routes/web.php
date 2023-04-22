@@ -39,7 +39,7 @@ Route::post('/add-rating/{id}', [HomeController::class, 'addRating']);
 Route::middleware('roleCheck:seller')->group(function () {
     Route::get('/seller', [HomeController::class, 'sellerProfile'])->name('seller-profile');
     Route::get('/seller/{id}/statistic', [HomeController::class, 'GetStatistic']);
-    Route::get('/seller/add-new', [HomeController::class, 'addingPage']);
+    Route::get('/seller-add-new', [HomeController::class, 'addingPage']);
     Route::post('/seller/{id}/add-new', [ProductController::class, 'PostProduct']);
 });
 

@@ -59,11 +59,16 @@ class BuyingHistory extends Model
             } else {
                 $count[$item[0]->id] = 1;
             }
-            $cost[$item[0]->id][Carbon::parse($item[0]->created_at)->month] = isset($cost[$item[0]->id][Carbon::parse($item[0]->created_at)->format('m')])
-                ? $cost[$item[0]->id][Carbon::parse($item[0]->created_at)->month] + $item[0]->cost
-                : $item[0]->cost;
-            // добавляем сумму за каждый товар и месяц
+            $month = Carbon::parse($item[0]->created_at)->month;
+            if (isset($cost[$item[0]->id][$month])) {
+                $cost[$item[0]->id][$month] += $item[0]->cost;
+                $cost[$month][$item[0]->id] += $item[0]->cost;
+            } else {
+                $cost[$item[0]->id][$month] = $item[0]->cost;
+                $cost[$month][$item[0]->id] = $item[0]->cost;
+            }
         }
+
 
         $product_names = array();
         foreach (array_keys($count) as $item){

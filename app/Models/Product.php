@@ -62,8 +62,6 @@ class Product extends Model
             ->where('products.is_deleted', '=', '0')
             ->groupBy('products.id', 'product_files.id', 'reviews.id', 'ratings.id')
             ->get();
-
-        dump($data[0]);
         return $data[0];
     }
 
@@ -129,16 +127,11 @@ class Product extends Model
 
     static public function PostProduct($request)
     {
-        dump($request);
         $main_img = $request->file('main-img');
         $sub_img = $request->file('sub-img');
-        dump($main_img, $sub_img);
         $url = Product::SaveImg($main_img);
-        dump($url);
         $category = DB::table('categories')->where('name', '=', $request->input('category'))->get('id')[0];
-        dump($category);
         $product_id = DB::table('products')->insertGetId(['title' => $request->input('name'), 'description' => $request->input('description'), 'category' => $category->id, 'seller_id' => Auth::user()->id, 'cost' => $request->input('cost')]);
-        dump($product_id);
         DB::table('product_files')->insert(['type' => 'main-img', 'path' => '/' . $url, 'product_id' => $product_id]);
         DB::table('product_files')->insert(['type' => 'card-img', 'path' => '/' . $url, 'product_id' => $product_id]);
         foreach ($sub_img as $item) {
