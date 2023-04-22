@@ -36,19 +36,29 @@
                         <h2>{{$product->cost}}$</h2>
                     </div>
                     <div class="col-6">
-                        <form>
-                            @csrf
+                        <form method="post" action="/product/{{$product->product_id}}/buying">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                            <input type="hidden" name="seller" value="{{$product->seller_id}}">
                             <input type="submit" class="buying-btn" value="Buy">
                         </form>
                     </div>
                 </div>
                 <div class="row buying-div-low">
-                    @if (isset($product->promotion))
-                        <h4>{{$product->promotion}}$</h4>
-                    @endif
                     <h4>{{$product->rating}}/5</h4>
                 </div>
             </div>
+        </div>
+        <br>
+            <h1>Reviews:</h1>
+        <div class="col-6">
+            @auth()
+            <form action="/add-review/{{$product->product_id}}" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                <textarea name="text" id="description" cols="50" rows="5" placeholder="Send review" required style="margin-left: 15px"></textarea>
+                <input type="submit" class="cancel" value="Send" name="send"></input>
+            </form>
+            @endauth
+            <review :id="{{$product->product_id}}"></review>
         </div>
     </div>
     </div>

@@ -23,13 +23,18 @@ Route::get('/', function () {
 Route::get('/category/{category}', function () {
     return view('welcome');
 });
+Route::get('/seller/{seller}', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/product/{id}', [ProductController::class, 'showPage']);
+Route::post('add-review/{id}', [ProductController::class, 'addReview']);
 
 Route::middleware('roleCheck:user')->get('/user', [HomeController::class, 'userProfile'])->name('user-profile');
+Route::post('/add-rating/{id}', [HomeController::class, 'addRating']);
 
 Route::middleware('roleCheck:seller')->group(function () {
     Route::get('/seller', [HomeController::class, 'sellerProfile'])->name('seller-profile');
@@ -45,3 +50,4 @@ Route::middleware('roleCheck:admin')->group(function () {
 });
 
 Route::post('/delete-product/{id}', [ProductController::class, 'deleteProduct']);
+Route::post('/product/{id}/buying', [ProductController::class, 'buyingProduct']);

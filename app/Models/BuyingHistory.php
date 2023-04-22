@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
@@ -118,5 +119,12 @@ class BuyingHistory extends Model
             $db->push($item[0]);
         }
         return $db;
+    }
+
+    public static function AddNew($request, $id)
+    {
+        DB::table('buying_histories')
+            ->insert(['product_id'=>$id, 'seller_id'=>(int)$request->input('seller'), 'costumer_id'=>Auth::user()->id]);
+        return 1;
     }
 }

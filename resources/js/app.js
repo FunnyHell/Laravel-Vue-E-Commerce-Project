@@ -11,6 +11,7 @@ import CategoriesComponent from "./components/CategoriesComponent.vue";
 import ProductImagesCarouselComponent from "./components/ProductImagesCarouselComponent.vue";
 import RecommendationProductComponent from "./components/RecommendationProductComponent.vue";
 import BuyingHistoryComponent from "./components/BuyingHistoryComponent.vue";
+import ReviewComponent from "./components/ReviewComponent.vue";
 
 app.component("infinite-loading", InfiniteLoading);
 app.component('splide', Splide);
@@ -21,5 +22,6 @@ app.component('categories', CategoriesComponent);
 app.component('product-image-carousel', ProductImagesCarouselComponent);
 app.component('recommendation-products', RecommendationProductComponent);
 app.component('buying-history', BuyingHistoryComponent);
+app.component('review', ReviewComponent);
 
 app.mount('#app');

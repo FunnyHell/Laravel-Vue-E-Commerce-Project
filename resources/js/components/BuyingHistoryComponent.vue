@@ -15,6 +15,23 @@
                 </div>
             </div>
         </a>
+        <form :action="'/add-rating/'+product.id" method="post">
+            <csrf-token-input></csrf-token-input>
+            <input type="hidden" name="_token" :value="csrf"/>
+            <select name="rating[]" id="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <input type="submit" class="cancel" value="Rate" name="rate"/>
+        </form>
     </div>
 </template>
 
@@ -23,13 +40,20 @@ import {error} from "@splidejs/splide/src/js/utils";
 
 export default {
     name: "BuyingHistoryComponent",
-    props: ['id'],
+    props: ['id', 'csrf'],
     data() {
         return {
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             products: []
         }
     },
     mounted() {
+        axios.interceptors.request.use(config => {
+            config.headers['X-CSRF-TOKEN'] = this.csrf;
+            return config;
+            console.log(config);
+        });
+
         axios.get(`/api/user-history-products/${this.id}`)
             .then(responce => {
                 this.products = responce.data;
@@ -39,6 +63,7 @@ export default {
                 console.error(error);
             })
     }
+
 }
 
 </script>

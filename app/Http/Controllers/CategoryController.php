@@ -16,4 +16,8 @@ class CategoryController extends Controller
     public function FilteredProducts($category){
         return Product::GetFilteredProducts($category);
     }
+
+    public function SellersProducts($seller){
+        return Product::GetSellersProducts($seller);
+}
 }
