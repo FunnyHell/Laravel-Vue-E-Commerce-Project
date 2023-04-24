@@ -36,11 +36,18 @@
                         <h2>{{$product->cost}}$</h2>
                     </div>
                     <div class="col-6">
-                        <form method="post" action="/product/{{$product->product_id}}/buying">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                            <input type="hidden" name="seller" value="{{$product->seller_id}}">
-                            <input type="submit" class="buying-btn" value="Buy">
-                        </form>
+                        @auth()
+                            <form method="post" action="/product/{{$product->product_id}}/buying">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                <input type="hidden" name="seller" value="{{$product->seller_id}}">
+                                <input type="submit" class="buying-btn" value="Buy">
+                            </form>
+                        @endauth
+                        @if(!\Illuminate\Support\Facades\Auth::user())
+                                <form method="get" action="/login">
+                                    <input type="submit" class="buying-btn" value="Buy">
+                                </form>
+                        @endif
                     </div>
                 </div>
                 <div class="row buying-div-low">
@@ -49,15 +56,16 @@
             </div>
         </div>
         <br>
-            <h1>Reviews:</h1>
+        <h1>Reviews:</h1>
         <div class="col-6">
             @auth()
-            <form action="/add-review/{{$product->product_id}}" method="post">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                <textarea name="text" id="description" cols="50" rows="5" placeholder="Send review" required style="margin-left: 15px"></textarea>
-                <br>
-                <input type="submit" class="cancel" value="Send" name="send"></input>
-            </form>
+                <form action="/add-review/{{$product->product_id}}" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                    <textarea name="text" id="description" cols="50" rows="5" placeholder="Send review" required
+                              style="margin-left: 15px"></textarea>
+                    <br>
+                    <input type="submit" class="cancel" value="Send" name="send"></input>
+                </form>
             @endauth
             <review :id="{{$product->product_id}}"></review>
         </div>

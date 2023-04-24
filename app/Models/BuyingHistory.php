@@ -69,7 +69,6 @@ class BuyingHistory extends Model
             }
         }
 
-
         $product_names = array();
         foreach (array_keys($count) as $item){
             $product_names[$item] = DB::table('products')->where('id', '=', $item)->get('title')[0]->title;
@@ -123,6 +122,7 @@ class BuyingHistory extends Model
         foreach ($tmp as $item) {
             $db->push($item[0]);
         }
+
         return $db;
     }
 

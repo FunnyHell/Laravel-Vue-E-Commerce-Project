@@ -31,6 +31,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/product/{id}', [ProductController::class, 'showPage']);
+Route::post('/product/{id}/buying', [ProductController::class, 'buyingProduct']);
 Route::post('add-review/{id}', [ProductController::class, 'addReview']);
 
 Route::middleware('roleCheck:user')->get('/user', [HomeController::class, 'userProfile'])->name('user-profile');

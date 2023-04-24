@@ -14,12 +14,12 @@ class Rating extends Model
 
     static public function UpdateRating($id)
     {
-        $rating = DB::table('rating')->where('product_id', '=', $id)
+        $rating = DB::table('ratings')->where('product_id', '=', $id)
             ->select(DB::raw('AVG(ratings.value) as average'))->get();
         try {
             DB::table('products')->where('id', $id)
-                ->update(['rating' => $rating]);
-        } catch (Throwable $e){
+                ->update(['rating' => $rating[0]->average]);
+        } catch (Throwable $e) {
             report($e);
             return false;
         }
@@ -28,7 +28,8 @@ class Rating extends Model
     public static function SetRating($request, $id)
     {
         DB::table('ratings')
-            ->insert(['product_id'=>$id, 'author_id'=>Auth::user()->id, 'value'=>(int)$request->input('rating')]);
+            ->insert(['product_id' => $id, 'author_id' => Auth::user()->id, 'value' => (int)$request->input('rating')[0]]);
+        self::UpdateRating($id);
         return 1;
     }
 }

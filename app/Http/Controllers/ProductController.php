@@ -50,6 +50,6 @@ class ProductController extends Controller
 
     public function buyingProduct(Request $request, $id){
         BuyingHistory::AddNew($request, $id);
-        return redirect('/product/'.$id);
+        return redirect('/home');
     }
 }
