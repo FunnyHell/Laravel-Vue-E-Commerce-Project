@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('appeal_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+        Schema::table('products', function (Blueprint $table) {
+            $table->boolean('is_deleted')->default(false);
         });
     }
 
@@ -26,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appeal_types');
+        Schema::table('product', function (Blueprint $table) {
+            //
+        });
     }
 };

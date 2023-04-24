@@ -2,8 +2,8 @@
     <div v-for="product in products" class="product-card">
         <a :href="/product/+product.id">
             <div style="margin: 10px 10px 23px 10px"><img :src="'/storage/'+product.path" class="card-img"></div>
-            <div class="row">
-                <div class="col-8">
+            <div class="row card-texts">
+                <div class="col-7">
                     <div class="row"><h3 class="title">{{ product.title }}</h3></div>
                     <div class="row"><h3 class="cost">{{ product.cost }} $</h3></div>
                 </div>
@@ -44,6 +44,7 @@ export default {
             if (!this.finished) {
                 axios.get(apiEndpoint)
                     .then(response => {
+                        console.log(response.data.data);
                         this.products = this.products.concat(response.data.data);
                         console.log(response.data.data);
                         this.page++;
@@ -92,5 +93,11 @@ export default {
 
 .reviews {
     text-align: right;
+}
+
+.card-texts {
+    display: flex;
+    align-items: center;
+    margin-left: 7%;
 }
 </style>

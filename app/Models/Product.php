@@ -102,7 +102,8 @@ class Product extends Model
         return response()->json($data);
     }
 
-    static public function GetSellersProducts($seller){
+    static public function GetSellersProducts($seller)
+    {
         $s = DB::table('users')->where('id', '=', $seller)->first()->id;
         $data = DB::table('products')
             ->LeftJoin('product_files', function ($join) {
@@ -120,17 +121,27 @@ class Product extends Model
         return response()->json($data);
     }
 
+    private static function formatToParagraphs($text)
+    {
+        $paragraphs = preg_split("/[\r\n]+/", $text);
+        $paragraphsHtml = '';
+        foreach ($paragraphs as $paragraph) {
+            $paragraphsHtml .= '<p>' . $paragraph . '</p>';
+        }
+        return $paragraphsHtml;
+    }
+
     static public function PostProduct($request)
     {
         $main_img = $request->file('main-img');
         $sub_img = $request->file('sub-img');
         $url = ProductFile::SaveImg($main_img);
         $category = DB::table('categories')->where('name', '=', $request->input('category'))->get('id')[0];
-        $product_id = DB::table('products')->insertGetId(['title' => $request->input('name'), 'description' => $request->input('description'), 'category' => $category->id, 'seller_id' => Auth::user()->id, 'cost' => $request->input('cost')]);
+        $product_id = DB::table('products')->insertGetId(['title' => $request->input('name'), 'description' => Product::formatToParagraphs($request->input('description')), 'category' => $category->id, 'seller_id' => Auth::user()->id, 'cost' => $request->input('cost')]);
         DB::table('product_files')->insert(['type' => 'main-img', 'path' => '/' . $url, 'product_id' => $product_id]);
         DB::table('product_files')->insert(['type' => 'card-img', 'path' => '/' . $url, 'product_id' => $product_id]);
         foreach ($sub_img as $item) {
-            $url = Product::SaveImg($item);
+            $url = ProductFile::SaveImg($item);
             DB::table('product_files')->insert(['type' => 'sub-img', 'path' => '/' . $url, 'product_id' => $product_id]);
         }
     }

@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-4">
                 <h1>{{$product->title}}</h1>
-                <h4 style="word-wrap: break-word">{{$product->description}}</h4>
+                <h4 style="word-wrap: break-word">{!! $product->description !!}</h4>
             </div>
             <div class="col-1"></div>
             <div class="col-4" style="margin-right: 20px;">

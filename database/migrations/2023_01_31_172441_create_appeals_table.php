@@ -17,12 +17,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id')->references('id')->on('appeal_types');
+            $table->text('type');
             $table->text('description');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('admin_id')->default(null);
             $table->foreign('admin_id')->references('id')->on('users');
             $table->string('result')->default(null);
             $table->timestamps();
