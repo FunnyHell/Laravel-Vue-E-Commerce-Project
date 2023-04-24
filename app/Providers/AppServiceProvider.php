@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\User;
-//use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,6 +28,5 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('delete_product', function (User $user){
            return $user->isNotUser();
         });
-        //
     }
 }

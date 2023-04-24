@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductFile extends Model
 {
@@ -16,5 +17,10 @@ class ProductFile extends Model
             ->where('type','=','sub-img')
             ->get();
         return response()->json($data);
+    }
+
+    static public function SaveImg($img)
+    {
+        return $url = Storage::disk('public')->put('/img', $img);
     }
 }

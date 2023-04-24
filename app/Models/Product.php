@@ -120,16 +120,11 @@ class Product extends Model
         return response()->json($data);
     }
 
-    static private function SaveImg($img)
-    {
-        return $url = Storage::disk('public')->put('/img', $img);
-    }
-
     static public function PostProduct($request)
     {
         $main_img = $request->file('main-img');
         $sub_img = $request->file('sub-img');
-        $url = Product::SaveImg($main_img);
+        $url = ProductFile::SaveImg($main_img);
         $category = DB::table('categories')->where('name', '=', $request->input('category'))->get('id')[0];
         $product_id = DB::table('products')->insertGetId(['title' => $request->input('name'), 'description' => $request->input('description'), 'category' => $category->id, 'seller_id' => Auth::user()->id, 'cost' => $request->input('cost')]);
         DB::table('product_files')->insert(['type' => 'main-img', 'path' => '/' . $url, 'product_id' => $product_id]);
