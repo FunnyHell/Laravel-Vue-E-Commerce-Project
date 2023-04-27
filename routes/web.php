@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
@@ -34,8 +35,14 @@ Route::get('/product/{id}', [ProductController::class, 'showPage']);
 Route::post('/product/{id}/buying', [ProductController::class, 'buyingProduct']);
 Route::post('add-review/{id}', [ProductController::class, 'addReview']);
 
-Route::middleware('roleCheck:user')->get('/user', [HomeController::class, 'userProfile'])->name('user-profile');
-Route::post('/add-rating/{id}', [HomeController::class, 'addRating']);
+Route::middleware('roleCheck:user')->group(function () {
+    Route::get('/user', [HomeController::class, 'userProfile'])->name('user-profile');
+    Route::post('/add-rating/{id}', [HomeController::class, 'addRating']);
+    Route::get('/favorites', [FavoriteController::class, 'index']);
+    Route::post('/add-favorite/{id}', [FavoriteController::class, 'addFavorite']);
+    Route::post('delete-favorite/{id}', [FavoriteController::class, 'deleteFavorite']);
+});
+
 
 Route::middleware('roleCheck:seller')->group(function () {
     Route::get('/seller', [HomeController::class, 'sellerProfile'])->name('seller-profile');
@@ -45,9 +52,9 @@ Route::middleware('roleCheck:seller')->group(function () {
 });
 
 Route::middleware('roleCheck:admin')->group(function () {
-   Route::get('/admin', [HomeController::class, 'adminProfile'])->name('admin-profile');
-   Route::post('/cancel-appeal/{id}', [HomeController::class, 'cancelAppeal']);
-   Route::post('/delete-appeal/{id}', [HomeController::class, 'deleteAppeal']);
+    Route::get('/admin', [HomeController::class, 'adminProfile'])->name('admin-profile');
+    Route::post('/cancel-appeal/{id}', [HomeController::class, 'cancelAppeal']);
+    Route::post('/delete-appeal/{id}', [HomeController::class, 'deleteAppeal']);
 });
 
 Route::post('/delete-product/{id}', [ProductController::class, 'deleteProduct']);

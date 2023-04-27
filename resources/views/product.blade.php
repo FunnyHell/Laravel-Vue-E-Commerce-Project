@@ -28,9 +28,12 @@
             </div>
             <div class="col-1"></div>
             <div class="col-2 buying-div">
-                <button class="like-btn">
-                    <img src="{{asset('/img/empty-like.png')}}" alt="empty-like">
-                </button>
+                <form action="/add-favorite/{{$product->product_id}}" method="post">
+                    @csrf
+                    <button class="like-btn">
+                        <img src="{{asset('/img/empty-like.png')}}" alt="empty-like">
+                    </button>
+                </form>
                 <div class="row">
                     <div class="col-6">
                         <h2>{{$product->cost}}$</h2>
@@ -44,9 +47,9 @@
                             </form>
                         @endauth
                         @if(!\Illuminate\Support\Facades\Auth::user())
-                                <form method="get" action="/login">
-                                    <input type="submit" class="buying-btn" value="Buy">
-                                </form>
+                            <form method="get" action="/login">
+                                <input type="submit" class="buying-btn" value="Buy">
+                            </form>
                         @endif
                     </div>
                 </div>
