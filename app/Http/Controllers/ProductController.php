@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appeal;
 use App\Models\BuyingHistory;
 use App\Models\Reviews;
 use App\Models\User;
@@ -17,7 +18,7 @@ class ProductController extends Controller
 
     public function showPage($id)
     {
-        return view('product', ['product' => Product::GetProduct($id)]);
+        return view('product', ['product' => Product::GetProduct($id), 'appeals_type' => Appeal::GetAppealsType()]);
     }
 
     public function GetRandom($id)
@@ -51,5 +52,10 @@ class ProductController extends Controller
     public function buyingProduct(Request $request, $id){
         BuyingHistory::AddNew($request, $id);
         return redirect('/home');
+    }
+
+    public function AddAppeal(Request $request, $id){
+        Appeal::AddAppeal($request, $id);
+        return redirect('/product/'.$id);
     }
 }

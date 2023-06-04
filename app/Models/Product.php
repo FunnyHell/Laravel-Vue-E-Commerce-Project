@@ -79,6 +79,7 @@ class Product extends Model
                     ->where('product_files.type', '=', 'card-img');
             })
             ->where('products.is_deleted', '=', '0')
+            ->select('products.*', 'product_files.path')
             ->get();
         return response()->json($data);
     }

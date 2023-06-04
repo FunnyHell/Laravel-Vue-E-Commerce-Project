@@ -11,6 +11,15 @@ class Appeal extends Model
 {
     use HasFactory;
 
+    public static function AddAppeal($request, $id){
+        DB::table('appeals')->insert([
+            'user_id' => Auth::user()->id,
+            'product_id' => $id,
+            'type_id' => $request->appeal_type[0],
+            'description' => $request->description,
+        ]);
+    }
+
     public static function GetAppeals()
     {
         return DB::table('appeals')
@@ -44,5 +53,9 @@ class Appeal extends Model
         DB::table('appeals')
             ->where('id', '=', $id)
             ->update(['admin_id' => Auth::user()->id, 'result' => 'deleted']);
+    }
+
+    public static function GetAppealsType(){
+        return DB::table('appeal_types')->get();
     }
 }

@@ -8,6 +8,18 @@
                 <input type="submit" class="cancel" value="Delete" name="cancel"></input>
             </form>
         @endcan
+        @auth()
+                <form action="/add-appeal/{{$product->product_id}}" method="post">
+                    @csrf
+                    <input type="text" name="description">
+                    <select name="appeal_type[]">
+                        @foreach($appeals_type as $appeal_type)
+                            <option value="{{$appeal_type->id}}">{{$appeal_type->name}}</option>
+                        @endforeach
+                    </select>
+                    <input type="submit" value="">
+                </form>
+        @endauth
         <div class="row">
             <div class="col-4">
                 <h1>{{$product->title}}</h1>

@@ -57,5 +57,5 @@ Route::middleware('roleCheck:admin')->group(function () {
     Route::post('/delete-appeal/{id}', [HomeController::class, 'deleteAppeal']);
 });
 
+Route::post('/add-appeal/{id}', [ProductController::class, 'addAppeal']);
 Route::post('/delete-product/{id}', [ProductController::class, 'deleteProduct']);
-Route::post('/product/{id}/buying', [ProductController::class, 'buyingProduct']);
